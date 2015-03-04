@@ -160,6 +160,22 @@
     "should throw error"
     (check-equal? (my-list-ref '(4 7 9) 3) "index out of bounds" "should return an error"))))
 
+(define deep-reverse-tests
+  (test-suite
+   "Test cases for deep-revers"
+   (test-case
+    "should reverse deep nested collection"
+    (check-equal? (deep-reverse '(((4 3) 6)((7 2 9)(5 1)))) '(((1 5) (9 2 7)) (6 (3 4))) "should reverse collection"))
+   (test-case
+    "should reverse shallow nested collection"
+    (check-equal? (deep-reverse '((1 2) 3)) '(3 (2 1)) "should reverse shallow collection"))
+   (test-case
+    "reverse non-nested collection"
+    (check-equal? (deep-reverse '((4 5))) '((5 4)) "should reverse non-nested collection"))
+   (test-case
+    "non-nested collection two"
+    (check-equal? (deep-reverse '(3 6 9 12)) '(12 9 6 3) "should reverse non-nested collection"))))
+
 (require rackunit/text-ui)
  
 (run-tests my-reverse-tests)
@@ -172,3 +188,4 @@
 (run-tests my-flatten-tests)
 (run-tests threshold-tests)
 (run-tests my-list-ref-tests)
+(run-tests deep-reverse-tests)
